@@ -1,0 +1,64 @@
+.child {
+    animation: hoist 1ms infinite var(--hoist), capture 1ms infinite var(--capture);
+    --output: calc(var(--input,0) + 1);
+}
+@keyframes hoist {
+    0%, 100% {
+        --hold: var(--output);
+    }
+}
+
+@keyframes capture {
+    0%, 100% {
+        --input: var(--hold);
+    }
+}
+
+@property --output {
+    syntax: "<integer>";
+    initial-value: 0;
+    inherits: true;
+}
+
+.child::after {
+    position:absolute;
+    counter-reset: frame var(--output);
+    content: "frame-count: " counter(frame);
+}
+
+.parent {
+    container-type: size;
+    animation: expandWidth 4ms infinite,steps(4, start);
+}
+@keyframes expandWidth {
+    from{
+        width:0px;
+    }
+    to{
+        width:400px;
+    }
+}
+@container (max-width:400px) {
+    .child {
+        --hoist: running;
+        --capture:paused;
+    }
+}
+@container (max-width : 300px) {
+    .child {
+        --hoist: paused;
+        --capture: paused;
+    }
+}
+@container (max-width : 200px) {
+    .child {
+        --hoist: paused;
+        --capture: running;
+    }
+}
+@container (max-width : 100px) {
+    .child {
+        --hoist: paused;
+        --capture: paused;
+    }
+}
