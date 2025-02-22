@@ -35,28 +35,28 @@
         width:0px;
     }
     to{
-        width:400px;
+        width:4px;
     }
 }
-@container (max-width:400px) {
+@container (max-width:4px) {
     .child {
-        --hoist: running;
-        --capture:paused;
+        --hoist: paused;
+        --capture:running;
     }
 }
-@container (max-width : 300px) {
+@container (max-width : 3px) {
     .child {
         --hoist: paused;
         --capture: paused;
     }
 }
-@container (max-width : 200px) {
+@container (max-width : 2px) {
     .child {
-        --hoist: paused;
-        --capture: running;
+        --hoist: running;
+        --capture: paused;
     }
 }
-@container (max-width : 100px) {
+@container (max-width : 1px) {
     .child {
         --hoist: paused;
         --capture: paused;
